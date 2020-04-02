@@ -17,7 +17,7 @@ class NMLBuildPy(build_py):
         super().run()
 
 setup(
-    name='nml',
+    name='nml-test',  # XXX Test code
     version=NML_VERSION,
     packages=find_packages(),
     description='An OpenTTD NewGRF compiler for the nml language',

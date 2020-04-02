@@ -64,7 +64,7 @@ jobs:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
-        twine upload wheelhouse/*-manylinux*.whl
+        twine upload --repository-url https://test.pypi.org/legacy/ wheelhouse/*-manylinux*.whl
 
     - name: Build and publish wheel
       if: "! startsWith(matrix.os, 'ubuntu')"
@@ -73,7 +73,7 @@ jobs:
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
         python setup.py bdist_wheel
-        twine upload dist/*.whl
+        twine upload --repository-url https://test.pypi.org/legacy/ dist/*.whl
 
     - name: Build standalone executable
       if: startsWith(matrix.os, 'windows')
