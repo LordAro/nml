@@ -61,19 +61,17 @@ jobs:
     - name: Publish manylinux Python wheels
       if: startsWith(matrix.os, 'ubuntu')
       env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
-        twine upload --repository-url https://test.pypi.org/legacy/ wheelhouse/*-manylinux*.whl
+        twine upload --username __token__ --repository-url https://test.pypi.org/legacy/ wheelhouse/*-manylinux*.whl
 
     - name: Build and publish wheel
       if: "! startsWith(matrix.os, 'ubuntu')"
       env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
         python setup.py bdist_wheel
-        twine upload --repository-url https://test.pypi.org/legacy/ dist/*.whl
+        twine upload --username __token__ --repository-url https://test.pypi.org/legacy/ dist/*.whl
 
     - name: Build standalone executable
       if: startsWith(matrix.os, 'windows')
