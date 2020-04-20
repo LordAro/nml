@@ -103,10 +103,3 @@ jobs:
       with:
         name: nml-${{ steps.nml_version.outputs.version }}-win64
         path: dist/nmlc.exe
-
-    # TODO: Remove this and/or replace with something more specific
-    - name: Archive distribution
-      uses: actions/upload-artifact@v1
-      with:
-        name: nml-build-artifacts-${{ matrix.os }}
-        path: dist
