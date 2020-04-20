@@ -77,8 +77,16 @@ jobs:
       env:
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
-        python setup.py bdist_wheel
+        python setup.py sdist bdist_wheel
         twine upload --username __token__ --repository-url https://test.pypi.org/legacy/ dist/*.whl
+
+    # Only do this on Windows to prevent file conflicts
+    - name: Build and publish source distribution
+      if: startsWith(matrix.os, 'windows')
+      env:
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      run: |
+        twine upload --username __token__ --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
 
     - name: Build standalone executable
       if: startsWith(matrix.os, 'windows')
