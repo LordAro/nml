@@ -1,8 +1,15 @@
 name: Release
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+    - master
+    tags:
+    - '*'
+  repository_dispatch:
+    types:
+    - publish_latest_tag
+    - publish_master
 
 jobs:
   release:
